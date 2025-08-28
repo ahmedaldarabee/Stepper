@@ -1,28 +1,41 @@
-import React from "react"
+import React, { useState } from "react"
+import Message from "./Message"
+import ProgressBar from "./ProgressBar";
 
 const MultiStep = () => {
+
+    const messages = [ "learn react" , "apply for jobs" , "invest your income" ]
+    const [steps,setSteps] = useState(0);
+    
+    const handleNextStep = () => {
+        if(steps <= 2 ) setSteps((step) => step +1 )
+    }
+    
+    const handlePrevStep = () => {
+        if(steps >= 1) setSteps((step) => step - 1);
+    }
+
     return (
         <div className="container overflow-x-hidden mx-auto border shadow-md w-full max-w-[550px] px-2 py-4 rounded-md cursor-pointer relative space-y-4">
 
             {/* line-bar */}
             <div className="progressContainer flex justify-between items-center relative">
                 
-                {/* progress line */}
-                <div className="progress"></div>
-                
-                {/* steps  */}
-                <div className="circle active">1</div>
-                <div className="circle">2</div>
-                <div className="circle">3</div>
+                <ProgressBar totalSteps={messages.length} steps={steps}/>
+                {
+                    messages.map((info, idx) => (
+                        <div className={`circle ${idx === steps ? 'active': ''}`}>{idx+1}</div>
+                    ))
+                }
             </div>
 
             <div className="content">
-                <h2 className="text-2xl text-gray-600 text-center capitalize">learn react js</h2>
+                <Message messages={messages} step={steps}/>
             </div>
             
             <div className="btns">
-                <button className="btn disabled">prev</button>
-                <button className="btn" >next</button>
+                <button className={`btn ${steps == 0 ? 'disabled' : ''}`} onClick={handlePrevStep}>prev</button>
+                <button className={`btn ${steps == 2 ? 'disabled' : ''}`} onClick={handleNextStep}>next</button>
             </div>
         </div>
     )

@@ -13,14 +13,13 @@
 }
 
 .progress {
-    background-color: purple;
+    background-color: #ddd;
     position: absolute;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
     height: 4px;
     z-index: 1;
-    transition: all 0.3s ease-in-out;
 }
 
 .circle {
